@@ -1,0 +1,28 @@
+{
+  "swagger": "2.0",
+  "info": {"title": "HRMS Backend API", "version": "1.0"},
+  "basePath": "/api/v1",
+  "schemes": ["http"],
+  "paths": {
+    "/auth/register": {"post": {"summary": "Register", "tags": ["Auth"], "parameters": [{"in": "body", "name": "body", "required": true, "schema": {"type": "object"}}], "responses": {"201": {"description": "created"}}}},
+    "/auth/login": {"post": {"summary": "Login", "tags": ["Auth"], "parameters": [{"in": "body", "name": "body", "required": true, "schema": {"type": "object"}}], "responses": {"200": {"description": "ok"}}}},
+    "/auth/refresh": {"post": {"summary": "Refresh", "tags": ["Auth"], "parameters": [{"in": "body", "name": "body", "required": true, "schema": {"type": "object"}}], "responses": {"200": {"description": "ok"}}}},
+
+    "/employees": {
+      "get": {"summary": "List employees", "tags": ["Employees"], "security": [{"BearerAuth": []}], "responses": {"200": {"description": "ok"}}},
+      "post": {"summary": "Create employee", "tags": ["Employees"], "security": [{"BearerAuth": []}], "parameters": [{"in": "body", "name": "body", "required": true, "schema": {"type": "object"}}], "responses": {"201": {"description": "created"}}}
+    },
+    "/employees/{id}": {"put": {"summary": "Update employee", "tags": ["Employees"], "security": [{"BearerAuth": []}], "parameters": [{"name": "id", "in": "path", "required": true, "type": "integer"}, {"in": "body", "name": "body", "required": true, "schema": {"type": "object"}}], "responses": {"200": {"description": "updated"}}}, "delete": {"summary": "Delete employee", "tags": ["Employees"], "security": [{"BearerAuth": []}], "parameters": [{"name": "id", "in": "path", "required": true, "type": "integer"}], "responses": {"204": {"description": "deleted"}}}},
+    "/employees/me": {"get": {"summary": "Get my profile", "tags": ["Employees"], "security": [{"BearerAuth": []}], "responses": {"200": {"description": "ok"}}}},
+
+    "/attendance": {"get": {"summary": "List my attendance", "tags": ["Attendance"], "security": [{"BearerAuth": []}], "responses": {"200": {"description": "ok"}}}, "post": {"summary": "Add my attendance", "tags": ["Attendance"], "security": [{"BearerAuth": []}], "parameters": [{"in": "body", "name": "body", "required": true, "schema": {"type": "object"}}], "responses": {"201": {"description": "created"}}}},
+    "/attendance/{id}": {"delete": {"summary": "Delete my attendance", "tags": ["Attendance"], "security": [{"BearerAuth": []}], "parameters": [{"name": "id", "in": "path", "required": true, "type": "integer"}], "responses": {"204": {"description": "deleted"}}}, "put": {"summary": "Update any attendance (HR)", "tags": ["Attendance"], "security": [{"BearerAuth": []}], "parameters": [{"name": "id", "in": "path", "required": true, "type": "integer"}, {"in": "body", "name": "body", "required": true, "schema": {"type": "object"}}], "responses": {"200": {"description": "updated"}}}},
+
+    "/leaves": {"get": {"summary": "List my leaves", "tags": ["Leaves"], "security": [{"BearerAuth": []}], "responses": {"200": {"description": "ok"}}}, "post": {"summary": "Apply leave", "tags": ["Leaves"], "security": [{"BearerAuth": []}], "parameters": [{"in": "body", "name": "body", "required": true, "schema": {"type": "object"}}], "responses": {"201": {"description": "created"}}}},
+    "/leaves/{id}": {"delete": {"summary": "Delete my leave", "tags": ["Leaves"], "security": [{"BearerAuth": []}], "parameters": [{"name": "id", "in": "path", "required": true, "type": "integer"}], "responses": {"204": {"description": "deleted"}}}},
+    "/leaves/{id}/approve": {"post": {"summary": "Approve leave (HR)", "tags": ["Leaves"], "security": [{"BearerAuth": []}], "parameters": [{"name": "id", "in": "path", "required": true, "type": "integer"}], "responses": {"200": {"description": "approved"}}}},
+    "/leaves/{id}/reject": {"post": {"summary": "Reject leave (HR)", "tags": ["Leaves"], "security": [{"BearerAuth": []}], "parameters": [{"name": "id", "in": "path", "required": true, "type": "integer"}], "responses": {"200": {"description": "rejected"}}}}
+  },
+  "securityDefinitions": {"BearerAuth": {"type": "apiKey", "name": "Authorization", "in": "header"}}
+}
+
